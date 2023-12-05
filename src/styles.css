@@ -1,0 +1,33 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Стили для выпадающего списка пород */
+  .breed-select {
+    width: 300px;
+    display: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: auto;
+  }
+  /* Стили для индикатора загрузки данных */
+  .loader {
+    display: flex; 
+    font-size: 10px;
+    color: #333;
+  }
+  
+  /* Стили для сообщения об ошибке */
+  .error {
+    display: flex; 
+    color: red;
+  }
+  
+  /* Стили для информации о коте */
+  .cat-info {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
