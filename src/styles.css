@@ -22,7 +22,8 @@ body {
   /* Стили для сообщения об ошибке */
   .error {
     display: flex; 
-    color: red;
+    color: black;
+    font-size: 10px;
   }
   
   /* Стили для информации о коте */
