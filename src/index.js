@@ -1,7 +1,5 @@
 import { fetchBreeds, fetchCatByBreed } from "./cat-api";
-
 import axios from "axios";
-axios.defaults.headers.common ["x-api-key"] = "live_KKRXbc8Dc9yTNb06QWF9f9Y2hWjxGTgmp9FluGVsZzhFdQncv0u4kbJ7pBLqymZ9";
 import './styles.css';
 import SlimSelect from 'slim-select'
 import 'slim-select/dist/slimselect.css';
