@@ -1,34 +1,54 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* Стили для выпадающего списка пород */
-  .breed-select {
-    width: 300px;
+*{
+    box-sizing: border-box;
+}
+
+p{
+    font-size: 18px;
+}
+
+.cat-info{
+    display: flex;
+    gap: 40px;
+}
+
+.box-img{
+    display: flex;
+    align-items: center;
+}
+
+.box{
+    width: 600px;
+}
+.error{
     display: none;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: auto;
-  }
-  /* Стили для индикатора загрузки данных */
-  .loader {
-    display: flex; 
-    font-size: 10px;
-    color: #333;
-  }
-  
-  /* Стили для сообщения об ошибке */
-  .error {
-    display: flex; 
-    color: black;
-    font-size: 10px;
-  }
-  
-  /* Стили для информации о коте */
-  .cat-info {
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
+    color: red;
+}
+.breed-select{
+    display: none;
+}
+
+
+.loader {
+  position: relative;
+  display: inline-block;
+  padding-left: 20px; /* Добавляем отступ слева для места анимации */
+}
+
+.loader::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 15px;
+  height: 15px;
+  border: 2px solid #3498db;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite; /* Применяем анимацию к псевдоэлементу */
+}
+
+@keyframes spin {
+  0% { transform: translateY(-50%) rotate(0deg); }
+  100% { transform: translateY(-50%) rotate(360deg); }
+}
