@@ -1,6 +1,6 @@
 const url = 'https://api.thecatapi.com/v1';
 const api_key = "live_elupuIpxSGwTq2cH9wyj3ccPlSjNV2GEnHYavYCevuKuiAWYhW0pX5p7CQQ61y2R";
-import axios from "axios";
+
 
 
 export function fetchBreeds() {
