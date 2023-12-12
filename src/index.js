@@ -12,23 +12,34 @@ const ref = {
     error: document.querySelector('.error'),
 };
 const { selector, divCatInfo, loader, error } = ref;
+let breedSelected = false; // Флаг для перевірки чи обрано породу
 
 loader.classList.replace('loader', 'is-hidden');
 error.classList.add('is-hidden');
 divCatInfo.classList.add('is-hidden');
+selector.classList.add('is-hidden'); // Приховуємо селект за замовчуванням
+
+document.addEventListener('DOMContentLoaded', () => {
+    loader.classList.replace('is-hidden', 'loader'); 
+});
 
 let arrBreedsId = [];
 fetchBreeds()
-.then(data => {
-    data.forEach(element => {
-        arrBreedsId.push({text: element.name, value: element.id});
-    });
-    new SlimSelect({
-        select: selector,
-        data: arrBreedsId
-    });
+    .then(data => {
+        data.forEach(element => {
+            arrBreedsId.push({ text: element.name, value: element.id });
+        });
+        new SlimSelect({
+            select: selector,
+            data: arrBreedsId
+        });
     })
-.catch(onFetchError);
+    .catch(onFetchError)
+    .finally(() => {
+        loader.classList.replace('loader', 'is-hidden');
+        error.classList.add('is-hidden');
+        selector.classList.remove('is-hidden'); // Показуємо селект після завантаження
+    })
 
 selector.addEventListener('change', onSelectBreed);
 
@@ -38,16 +49,20 @@ function onSelectBreed(event) {
     divCatInfo.classList.add('is-hidden');
 
     const breedId = event.currentTarget.value;
-    fetchCatByBreed(breedId)
-    .then(data => {
-        loader.classList.replace('loader', 'is-hidden');
-        selector.classList.remove('is-hidden');
-        const { url, breeds } = data[0];
-        
-        divCatInfo.innerHTML = `<div class="box-img"><img src="${url}" alt="${breeds[0].name}" width="400"/></div><div class="box"><h1>${breeds[0].name}</h1><p>${breeds[0].description}</p><p><b>Temperament:</b> ${breeds[0].temperament}</p></div>`
-        divCatInfo.classList.remove('is-hidden');
-    })
-    .catch(onFetchError);
+    if (breedId && breedSelected) {
+        fetchCatByBreed(breedId)
+            .then(data => {
+                loader.classList.replace('loader', 'is-hidden');
+                selector.classList.remove('is-hidden');
+                const { url, breeds } = data[0];
+
+                divCatInfo.innerHTML = `<div class="box-img"><img src="${url}" alt="${breeds[0].name}" width="400"/></div><div class="box"><h1>${breeds[0].name}</h1><p>${breeds[0].description}</p><p><b>Temperament:</b> ${breeds[0].temperament}</p></div>`
+                divCatInfo.classList.remove('is-hidden');
+            })
+            .catch(onFetchError);
+    } else {
+        breedSelected = true; // Вказуємо, що була вибрана порода, але перший запит не відбувся
+    }
 };
 
 function onFetchError(error) {
@@ -56,7 +71,7 @@ function onFetchError(error) {
 
     Notify.failure('Oops! Something went wrong! Try reloading the page or select another cat breed!', {
         position: 'center-center',
-        timeout: 2000,
+        timeout: 4000,
         width: '500px',
         fontSize: '20px'
     });
